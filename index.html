@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="favicon.ico">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+<!-- Custom styles for this template -->
+<link href="jumbotron-narrow.css" rel="stylesheet">
+<link href="https://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet" />
+<title>Github Static Router</title>
+<script src="router.js"></script>
+<script>
+</script>
+</head>
+<body>
+  <div class="container">
+    <div class="header clearfix">
+      <nav>
+        <ul class="nav nav-pills pull-right">
+          <!--<li role="presentation" class="active"><a href="#">Home</a></li>-->
+        </ul>
+      </nav>
+      <h3 class="text-muted">Github Static Router</h3>
+    </div>
+
+    <div class="jumbotron">
+      <h1>Free and Easy</h1>
+      <h2>link manager on github</h2>
+      <p class="lead">Github Static Router gives human friendly interface to create named or short links for your domain.</p>
+      <!--<p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>-->
+    </div>
+
+    <div class="row marketing">
+      <div class="col-lg-6">
+        <h4>Subheading</h4>
+        <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+        <h4>Subheading</h4>
+        <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+        <h4>Subheading</h4>
+        <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+      </div>
+
+      <div class="col-lg-6">
+        <h4>Available links on this service.</h4>
+        <ul id="list">Loading...</ul>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>&copy; 2015 Company, Inc.</p>
+    </footer>
+
+  <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+  </div> <!-- /container -->
+
+<script>
+rules_onload.push(function(rules) {
+  var list = $('#list');
+  list.html('');
+  for (var idx in rules) {
+    var rule = rules[idx];
+    var li = undefined;
+    if (rule[0] instanceof RegExp) {
+      li = $('<li>')
+        .append(
+          $('<span>').append(rule[0]))
+        .append(' -> ')
+        .append($('<span>').append(rule[1]));
+    } else {
+      li = $('<li>')
+        .append(
+          $('<a>').attr({'href': '#' + rule[0]}).append(rule[0]))
+        .append(' -> ')
+        .append(
+          $('<a>').attr({'href': rule[1]}).append(rule[1]));
+    }
+    list.append(li);
+  }
+  list.append(
+    $('<li>')
+      .append('Show rule file: ')
+      .append($('<a>').attr({'href': rules_url}).append(rules_url)));
+});
+route_onload({
+  'repository': 'youknowone/github-router',  // your repository
+  'branch': 'gh-pages',  // 'master' or 'gh-pages' usually
+  'filename': 'rules.sample.json',  // 'rules.json' default
+}, function(url) {
+  if (url == undefined) {
+      console.log('404 not found');
+      return false;
+  }
+  console.log('found');
+});
+</script>
+</body>
+</html>
