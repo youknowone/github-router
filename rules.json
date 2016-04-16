@@ -1,0 +1,6 @@
+[
+    ["localhost", "http://127.0.0.1"],
+    ["github-router", "http://youknowone.github.io/github-router/"],
+    ["^youknowone:(.+)$", "https://github.com/youknowone/$1"],
+    null
+]
